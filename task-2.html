@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сортування таблиці</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            cursor: pointer;
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<a href="index.html">Back</a>
+<h1>Сортування таблиці</h1>
+<table id="sortableTable">
+    <thead>
+        <tr>
+            <th>Ім'я</th>
+            <th>Вік</th>
+            <th>Зарплата</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Анна</td><td>28</td><td>40000</td></tr>
+        <tr><td>Борис</td><td>35</td><td>50000</td></tr>
+        <tr><td>Віктор</td><td>42</td><td>60000</td></tr>
+        <tr><td>Ганна</td><td>30</td><td>70000</td></tr>
+        <tr><td>Дмитро</td><td>25</td><td>45000</td></tr>
+    </tbody>
+</table>
+
+<script>
+    document.querySelectorAll("th").forEach(th => th.addEventListener("click", function() {
+        let table = th.closest("table");
+        let tbody = table.querySelector("tbody");
+        let index = Array.from(th.parentNode.children).indexOf(th);
+        let rows = Array.from(tbody.querySelectorAll("tr"));
+
+        rows.sort((rowA, rowB) => {
+            let cellA = rowA.children[index].innerText;
+            let cellB = rowB.children[index].innerText;
+            if (!isNaN(cellA) && !isNaN(cellB)) {
+                return cellA - cellB;
+            }
+            return cellA.localeCompare(cellB);
+        });
+
+        rows.forEach(row => tbody.appendChild(row));
+    }));
+</script>
+
+</body>
+</html>

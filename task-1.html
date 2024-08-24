@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редагування тексту</title>
+    <style>
+        #editableText {
+            padding: 10px;
+            border: 1px solid #ccc;
+            width: 300px;
+            margin-top: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+<a href="index.html">Back</a>
+<h1>Редагування тексту</h1>
+<div id="editableText">Цей текст можна редагувати</div>
+<textarea id="textArea" style="display:none;"></textarea>
+
+<script>
+    var editableDiv = document.getElementById("editableText");
+    var textArea = document.getElementById("textArea");
+
+    document.addEventListener("keydown", function(event) {
+        if (event.ctrlKey && event.key === 'e') {
+            event.preventDefault();
+            textArea.value = editableDiv.innerText;
+            editableDiv.style.display = "none";
+            textArea.style.display = "block";
+            textArea.focus();
+        }
+        if (event.ctrlKey && event.key === 's') {
+            event.preventDefault();
+            editableDiv.innerText = textArea.value;
+            textArea.style.display = "none";
+            editableDiv.style.display = "block";
+        }
+    });
+</script>
+
+</body>
+</html>
