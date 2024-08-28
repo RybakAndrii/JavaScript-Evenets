@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Розмірний блок тексту</title>
+    <style>
+        #resizableBlock {
+            width: 200px;
+            height: 150px;
+            border: 2px solid #000;
+            padding: 10px;
+            position: relative;
+            resize: both;
+            overflow: auto;
+        }
+
+        .resizer {
+            width: 10px;
+            height: 10px;
+            background: #000;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            cursor: se-resize;
+        }
+    </style>
+</head>
+<body>
+<a href="index.html">Back</a>
+<h1>Розмірний блок тексту</h1>
+<div id="resizableBlock">Тягни за кут, щоб змінити розмір цього блоку</div>
+
+<script>
+    const resizableBlock = document.getElementById('resizableBlock');
+    const resizer = document.createElement('div');
+    resizer.classList.add('resizer');
+    resizableBlock.appendChild(resizer);
+
+    resizer.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        window.addEventListener('mousemove', resize);
+        window.addEventListener('mouseup', stopResize);
+    });
+
+    function resize(e) {
+        resizableBlock.style.width = e.pageX - resizableBlock.getBoundingClientRect().left + 'px';
+        resizableBlock.style.height = e.pageY - resizableBlock.getBoundingClientRect().top + 'px';
+    }
+
+    function stopResize() {
+        window.removeEventListener('mousemove', resize);
+        window.removeEventListener('mouseup', stopResize);
+    }
+</script>
+
+</body>
+</html>
